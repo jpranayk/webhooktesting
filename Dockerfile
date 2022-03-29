@@ -1,6 +1,6 @@
-#THIS IS DOCKER FILE...!!!!!!!
-FROM nginx:latest 
-MAINTAINER pranayjangiti8985@gmail.com 
-COPY index.html /usr/share/nginx/html/
-COPY scorekeeper.js /usr/share/nginx/html/
-COPY style.css /usr/share/nginx/html/
+#!/bin/bash
+VERSION=$(date +%H-%M-%S)
+docker build -t 9494482991/testingbuild:$(VERSION) .
+docker push 9494482991/testingbuild:$(VERSION) .
+docker -H tcp://10.0.1.200:2375 stop nginx
+docker -H tcp://10.0.1.200:2375 run --rm -dit -p 8000:80 --name nginx --hostname nginx 9494482991/testingbuild:$(VERSION)
